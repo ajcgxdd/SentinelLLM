@@ -79,18 +79,6 @@ shieldai/
 └── README.md
 ```
 
----
-
-## For the Panel — Key Points to Explain
-
-1. **Multi-layer defense-in-depth**: No single point of failure. Even if Layer 1 misses, Layer 2 catches it.
-2. **Zero-day detection**: VAE anomaly scorer detects *unknown* patterns — unlike rule-based systems.
-3. **Dual-LLM verifier**: Reduces false positives by having a second model verify the first.
-4. **MITRE ATT&CK mapping**: Every detected threat is tagged to the international attack framework.
-5. **Metrics**: F1-score, precision, recall, false positive rate — all tracked live.
-
----
-
 ## Team
 - Dayananda Sagar Academy of Technology and Management (VTU)
 - Department of Computer Science & Engineering
