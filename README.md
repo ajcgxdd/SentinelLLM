@@ -42,7 +42,7 @@ http://localhost:8000
 
 ---
 
-## Demo Inputs (copy-paste these to the panel)
+## Demo Inputs 
 
 **Prompt Injection:**
 ```
@@ -78,8 +78,3 @@ shieldai/
 ├── run.py               ← Launcher
 └── README.md
 ```
-
-## Team
-- Dayananda Sagar Academy of Technology and Management (VTU)
-- Department of Computer Science & Engineering
-- Guide: Dr. ATI NARAYANA S
