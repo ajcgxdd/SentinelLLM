@@ -1,5 +1,4 @@
 # ShieldAI — Multi-Layer AI Security Framework
-### VTU Final Year Project | Dept. of CSE | DSATM
 
 ---
 
