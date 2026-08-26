@@ -9,8 +9,6 @@
 
 > **A 5-layer AI firewall** that protects LLM applications from prompt injection, jailbreaks, zero-day payloads, and data exfiltration — with real-time detection, MITRE ATT&CK mapping, and a live operator dashboard.
 
-Built as a **VTU Final Year Project** | Dept. of CSE | DSATM
-
 ---
 
 ## Highlights
@@ -28,8 +26,7 @@ Built as a **VTU Final Year Project** | Dept. of CSE | DSATM
 ### Prerequisites
 
 - Python 3.10+  
-- pip  
-- (Optional) CUDA-capable GPU for faster training  
+- pip 
 
 ### 1. Clone & install
 
@@ -58,7 +55,7 @@ cp .env.example .env
 python scripts/train.py
 ```
 
-Downloads datasets from HuggingFace, trains the VAE and XGBoost, and saves weights to `models/`. Takes ~15 min on an RTX 3050.
+Downloads datasets from HuggingFace, trains the VAE and XGBoost, and saves weights to `models/`.
 
 > **Skip training?** The server starts in full simulation mode. The dashboard will show each model as **SIM** instead of **LIVE**.
 
@@ -240,7 +237,3 @@ Detection thresholds can be adjusted live via the **Config** tab or the API:
 | **Frontend** | Vanilla HTML/CSS/JS (single-file dashboard) |
 
 ---
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
