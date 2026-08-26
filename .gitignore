@@ -1,0 +1,42 @@
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# ── Virtual environments ────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── IDE / Editor ────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Environment variables (contains API keys) ──────────────
+.env
+
+# ── Trained model weights (too large for git) ──────────────
+models/*.pt
+models/*.pkl
+models/*.bin
+models/*.onnx
+
+# ── HuggingFace cache (downloaded during training) ─────────
+.cache/
+huggingface/
+
+# ── Logs & temp ─────────────────────────────────────────────
+*.log
+*.tmp
+*.bak

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>/
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ShieldAI v2 — AI Security Framework</title>
@@ -507,6 +507,21 @@ textarea::placeholder { color:var(--text3); }
 .toast-flag  { border-color:rgba(255,165,2,0.4); color:var(--amber); }
 @keyframes toastIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
 
+/* ── MODEL STATUS BAR ── */
+.model-status-bar {
+  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;
+}
+.ms-chip {
+  display:flex; align-items:center; gap:6px;
+  padding:5px 12px; border-radius:20px; font-family:var(--font-mono);
+  font-size:10px; font-weight:700; border:1px solid var(--border2);
+  background:var(--glass);
+}
+.ms-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.ms-live   { background:var(--green); box-shadow:0 0 6px rgba(46,213,115,0.6); }
+.ms-sim    { background:var(--amber); box-shadow:0 0 6px rgba(255,165,2,0.5); }
+.ms-off    { background:var(--text3); }
+
 /* ── HOVER SHIMMER ── */
 .shimmer {
   position:relative; overflow:hidden;
@@ -530,7 +545,7 @@ textarea::placeholder { color:var(--text3); }
     <div class="brand-icon">S</div>
     <div>
       <div class="brand-name">ShieldAI</div>
-      <div class="brand-version">v2.0 · 50% BUILD</div>
+      <div class="brand-version">v2.0 · PRODUCTION</div>
     </div>
   </div>
 
@@ -552,6 +567,14 @@ textarea::placeholder { color:var(--text3); }
 
 <!-- ══════════════════════════ DASHBOARD ══════════════════════════ -->
 <div class="page active" id="page-dashboard">
+  <div class="model-status-bar" id="model-status-bar">
+    <div class="ms-chip"><div class="ms-dot ms-off"></div>DeBERTa</div>
+    <div class="ms-chip"><div class="ms-dot ms-off"></div>VAE</div>
+    <div class="ms-chip"><div class="ms-dot ms-off"></div>XGBoost</div>
+    <div class="ms-chip"><div class="ms-dot ms-off"></div>Presidio</div>
+    <div class="ms-chip"><div class="ms-dot ms-off"></div>Groq LLM</div>
+  </div>
+
   <div class="stat-grid">
     <div class="stat-card shimmer" style="--accent-color:var(--cyan)">
       <div class="stat-label">Total Analyzed</div>
@@ -609,7 +632,7 @@ textarea::placeholder { color:var(--text3); }
               <div class="layer-name">Ensemble detection engine</div>
               <div class="layer-desc">XGBoost meta-learner · GNN session graph</div>
             </div>
-            <span class="layer-status s-training">TRAINING</span>
+            <span class="layer-status s-active">ACTIVE</span>
           </div>
           <div class="layer-row" style="--lc:var(--amber)">
             <div class="layer-num" style="background:var(--amber-dim);color:var(--amber)">04</div>
@@ -785,7 +808,7 @@ textarea::placeholder { color:var(--text3); }
   </div>
   <div class="grid-2 mb14">
     <div class="panel">
-      <div class="panel-head"><span class="panel-title">LAYER 03 — ENSEMBLE ENGINE</span><span class="panel-badge s-training" style="font-size:10px;border-radius:20px;padding:2px 8px">TRAINING</span></div>
+      <div class="panel-head"><span class="panel-title">LAYER 03 — ENSEMBLE ENGINE</span><span class="panel-badge s-active" style="font-size:10px;border-radius:20px;padding:2px 8px">ACTIVE</span></div>
       <div class="panel-body">
         <p style="font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:12px">Fuses all signals into one threat score. Core of the framework.</p>
         <div style="font-size:12px;display:flex;flex-direction:column;gap:7px">
@@ -1005,6 +1028,25 @@ async function refreshDashboard() {
     const [sr, er] = await Promise.all([fetch(API+'/api/stats'), fetch(API+'/api/events?limit=8')]);
     const s = await sr.json();
     const {events} = await er.json();
+
+    // Model status bar
+    if (s.model_status) {
+      const ms = s.model_status;
+      const chips = [
+        {label:'DeBERTa', key:'deberta'},
+        {label:'VAE',     key:'vae'},
+        {label:'XGBoost', key:'xgboost'},
+        {label:'Presidio',key:'presidio'},
+        {label:'Groq LLM',key:'groq'},
+      ];
+      document.getElementById('model-status-bar').innerHTML = chips.map(c => {
+        const live = ms[c.key];
+        return `<div class="ms-chip">
+          <div class="ms-dot ${live ? 'ms-live' : 'ms-sim'}"></div>
+          ${c.label} <span style="color:${live?'var(--green)':'var(--amber)'};margin-left:4px">${live?'LIVE':'SIM'}</span>
+        </div>`;
+      }).join('');
+    }
 
     document.getElementById('m-total').textContent = s.total_analyzed;
     document.getElementById('m-breakdown').textContent = `${s.blocked} blocked · ${s.flagged} flagged · ${s.passed} passed`;
